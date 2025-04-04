@@ -53,7 +53,7 @@ make
 bison -d kalk.y  
 flex kalk.lex 
 gcc -w kalk.c kalk_sym.c lex.yy.c kalk.tab.c -lm -o kalk
-
+```sh
 ---
 
 ## **Running the Projects**
