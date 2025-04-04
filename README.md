@@ -45,6 +45,16 @@ After parsing, the program needs to be evaluated. Semantic analysis ensures that
 ✅ **Phase 3:** Build a **complete compiler** (generating low-level code).  
 
 ---
+## **Building the Projects**
+Each project will be built using a variation of these commands (most often the gcc is the one with the most variations). Example usage:
+
+```sh
+make
+bison -d kalk.y  
+flex kalk.lex 
+gcc -w kalk.c kalk_sym.c lex.yy.c kalk.tab.c -lm -o kalk
+
+---
 
 ## **Running the Projects**
 Each project comes with a `Makefile` for easy compilation. Example usage:
