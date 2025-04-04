@@ -49,7 +49,6 @@ After parsing, the program needs to be evaluated. Semantic analysis ensures that
 Each project will be built using a variation of these commands (most often the gcc is the one with the most variations). Example usage:
 
 ```sh
-make
 bison -d kalk.y  
 flex kalk.lex 
 gcc -w kalk.c kalk_sym.c lex.yy.c kalk.tab.c -lm -o kalk
@@ -60,6 +59,11 @@ gcc -w kalk.c kalk_sym.c lex.yy.c kalk.tab.c -lm -o kalk
 Each project comes with a `Makefile` for easy compilation. Example usage:
 
 ```sh
-make
 ./kalk test.txt
  ```
+---
+
+## **Some Information about VM**
+- Linux Virtual Machine at/ Oracle VirtualBox
+- Ubuntu 22
+- VM uses 1GB RAM-a & 10GB disc space
