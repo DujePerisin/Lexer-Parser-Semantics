@@ -1,9 +1,8 @@
-/* file: kalk.y */
-
+/*File -> kalk.y*/
 %{
 #include "kalk.h"
+extern char* yytext;
 %}
-
 %union {
     double fValue;              /* num value */
     pmatFunT pmatFun;           /* math function pointer*/
@@ -14,8 +13,7 @@
 %token <str> VARIABLE
 %token <pmatFun> MATFUN
 %token WHILE IF ELSE END PRINT NL STMT_LIST
-%token SWITCH CASE DEFAULT BREAK CONTINUE FOR
-
+%token FOR SWITCH CASE DEFAULT BREAK
 %right '='
 %right '?' ':' 
 %left GE LE EQ NE '>' '<'
@@ -23,19 +21,13 @@
 %left '*' '/'
 %left '^' 
 %nonassoc UMINUS
-
-%left ';'  /* This can give semicolon precedence over other operations */
-%left BREAK CONTINUE /* If BREAK and CONTINUE should be handled similarly */
-
-%type <nPtr> stmt expr stmt_list null_stmt switch_stmt for_stmt case_list
-
+%type <nPtr> stmt expr stmt_list null_stmt case_list case_stmt 
 %%
 program: /* NULL */    /*exit normally on eof or Ctrl-Z from keyboard*/  
         | program '.'  { exit(0); }  /*exit on '.' when keyboard input*/
         | program stmt { Execute($2); freeNode($2); } /*execute 
                                                 statement by statement*/
         ;
-
 stmt:     null_stmt                     { $$ = $1; }        
         | expr NL                       { $$ = Opr1(PRINT, $1); }        
         | expr ';'                      { $$ = $1; }        
@@ -43,38 +35,29 @@ stmt:     null_stmt                     { $$ = $1; }
         | PRINT expr ';'                { $$ = Opr1(PRINT, $2); }        
         | WHILE '(' expr ')' stmt_list END { $$ = Opr2(WHILE, $3, $5); }
         | IF '(' expr ')' stmt_list END    { $$ = Opr2(IF, $3, $5); }
-        | IF '(' expr ')' stmt_list ELSE stmt_list END
-                                        { $$ = Opr3(IF, $3, $5, $7); }   
-        | switch_stmt                   { $$ = $1; }
-        | for_stmt                      { $$ = $1; }
-        | BREAK ';'                     { $$ = Opr0(BREAK); }
-        | CONTINUE ';'                  { $$ = Opr0(CONTINUE); }
-        ;       
+        | IF '(' expr ')' stmt_list ELSE stmt_list END { $$ = Opr3(IF, $3, $5, $7); }
+        | FOR '(' expr ';' expr ';' expr ')' stmt_list END { $$ = Opr3(FOR, $3, $5, Opr2(STMT_LIST, $7, $9)); }
+        | SWITCH '(' expr ')' '{' nl_opt case_list '}' { $$ = Opr2(SWITCH, $3, $7); }
+        ;
+
+nl_opt:   /* empty */ 
+        | NL
+        | nl_opt NL
+        ;
+
+case_list: case_stmt                    { $$ = $1; }
+        | case_list case_stmt           { $$ = Opr2(STMT_LIST, $1, $2); }
+        ;
+
+case_stmt: CASE expr ':' nl_opt stmt_list      { $$ = Opr2(CASE, $2, $5); }
+        | DEFAULT ':' nl_opt stmt_list         { $$ = Opr2(DEFAULT, NULL, $4); }
+        | BREAK ';' nl_opt                   { $$ = Opr1(BREAK, NULL); }
+        ;
 null_stmt: NL                           { $$ = NULL; }
         | ';'                           { $$ = NULL; }
-
-stmt_list: stmt                 { $$ = AppendStmt(NULL, $1); }
-        |  stmt_list stmt       { $$ = AppendStmt($1, $2); }
+stmt_list: stmt                 { $$ = ($1) ? AppendStmt(NULL, $1) : NULL; }
+        |  stmt_list stmt       { $$ = ($2) ? AppendStmt($1, $2) : $1; }
         ;
-
-switch_stmt: SWITCH '(' expr ')' '{' case_list '}'  
-        { $$ = Opr2(SWITCH, $3, $6); } 
-        ;
-
-case_list: case_list CASE NUMBER ':' stmt_list  
-        { $$ = AppendCase($1, $3, $5); }  
-        | case_list DEFAULT ':' stmt_list  
-        { $$ = AppendDefaultCase($1, $4); }  
-        | CASE NUMBER ':' stmt_list  
-        { $$ = CreateCase($2, $4); }  
-        | DEFAULT ':' stmt_list  
-        { $$ = CreateDefaultCase($3); }  
-        ;
-
-for_stmt: FOR '(' expr ';' expr ';' expr ')' stmt_list END
-        { $$ = Opr4(FOR, $3, $5, $7, $9); }
-        ;
-
 expr:     NUMBER                { $$ = NumConst($1); }
         | VARIABLE              { Symbol *sp = lookupSym($1); 
                                   if(!sp) 
@@ -104,9 +87,8 @@ expr:     NUMBER                { $$ = NumConst($1); }
         | '(' expr ')'          { $$ = $2; }
         ;
 %%
-
 void yyerror(char *s) {
 	if(yyin != stdin) fprintf(stdout, "Line: %d: %s\n", lineno, s);
-	else              fprintf(stdout, "%s\n", s);			
+	else fprintf(stdout, "Error: %s (at token '%s')\n", s, yytext);			
 	longjmp(jumpdata,0);	/*a better exit than yyparse()==0 error*/
 }

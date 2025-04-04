@@ -64,17 +64,16 @@ extern int yydebug;
     PRINT = 265,                   /* PRINT  */
     NL = 266,                      /* NL  */
     STMT_LIST = 267,               /* STMT_LIST  */
-    SWITCH = 268,                  /* SWITCH  */
-    CASE = 269,                    /* CASE  */
-    DEFAULT = 270,                 /* DEFAULT  */
-    BREAK = 271,                   /* BREAK  */
-    CONTINUE = 272,                /* CONTINUE  */
-    FOR = 273,                     /* FOR  */
-    GE = 274,                      /* GE  */
-    LE = 275,                      /* LE  */
-    EQ = 276,                      /* EQ  */
-    NE = 277,                      /* NE  */
-    UMINUS = 278                   /* UMINUS  */
+    FOR = 268,                     /* FOR  */
+    SWITCH = 269,                  /* SWITCH  */
+    CASE = 270,                    /* CASE  */
+    DEFAULT = 271,                 /* DEFAULT  */
+    BREAK = 272,                   /* BREAK  */
+    GE = 273,                      /* GE  */
+    LE = 274,                      /* LE  */
+    EQ = 275,                      /* EQ  */
+    NE = 276,                      /* NE  */
+    UMINUS = 277                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -83,14 +82,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 7 "kalk.y"
+#line 6 "kalk.y"
 
     double fValue;              /* num value */
     pmatFunT pmatFun;           /* math function pointer*/
     char * str;                 /* variable name */
     NodeT *nPtr;                /* node pointer */
 
-#line 94 "kalk.tab.h"
+#line 93 "kalk.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

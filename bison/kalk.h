@@ -8,6 +8,7 @@
 #include <math.h>
 #include <setjmp.h>
 
+
 /* Type definitions */
 typedef struct _sym {
     char* name;

@@ -1,3 +1,4 @@
+// Combined example
 i=0; sum=0; 
 while (i < 30)  
 sum = sum + i;
@@ -6,4 +7,18 @@ sum = 0;
 end 
 print sum; 
 i = i + 1; 
-end 
+end  
+
+// For loop example
+x = 1;
+for (i = 1; i <= 5; i = i + 1)
+    x = x * i;
+    print x;
+end
+
+// Simple switch test
+value = 2;
+switch (value) {
+    case 2:
+        print 20;
+}
