@@ -53,7 +53,7 @@ make
 bison -d kalk.y  
 flex kalk.lex 
 gcc -w kalk.c kalk_sym.c lex.yy.c kalk.tab.c -lm -o kalk
-```sh
+ ```
 ---
 
 ## **Running the Projects**
@@ -62,3 +62,4 @@ Each project comes with a `Makefile` for easy compilation. Example usage:
 ```sh
 make
 ./kalk test.txt
+ ```
