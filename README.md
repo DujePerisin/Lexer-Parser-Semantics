@@ -12,7 +12,7 @@ In my projects, I've worked with:
 - **Token classification** for handling keywords, operators, identifiers, and literals.
 - **Error handling** for unexpected inputs.
 
-🛠 **Future Project:** Building my own **lexer** from scratch, without relying on tools like Flex.
+✅ **Completed Project:** Building my own **lexer** from scratch, without relying on tools like Flex.
 
 ---
 
