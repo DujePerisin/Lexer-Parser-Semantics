@@ -68,7 +68,7 @@ Each project comes with a `Makefile` for easy compilation. Example usage:
 - Ubuntu 22
 - VM uses 1GB RAM-a & 10GB disc space
 
-# COOL Lexer (located in lexer folder)
+## **COOL Lexer (located in lexer folder)**
 
 This project implements a **lexer** for the [COOL programming language](https://theory.stanford.edu/people/aiken/cool/), using **Flex** (Fast Lexical Analyzer Generator). The lexer is designed to recognize all standard COOL tokens, handle nested comments, string constants, and edge cases such as invalid or unterminated strings.
 
