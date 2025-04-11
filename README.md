@@ -121,3 +121,12 @@ Testing script that verifies the correctness of your lexer. It compares actual o
     - Null characters in strings
     - Strings exceeding 1024 characters
 - **Graceful error reporting** with detailed messages
+
+
+## **COOL Parser**
+   🛠 *Loading...*
+   
+## **COOL Semantic analyzer **
+   🛠 *Loading...*
+
+
