@@ -67,3 +67,57 @@ Each project comes with a `Makefile` for easy compilation. Example usage:
 - Linux Virtual Machine at/ Oracle VirtualBox
 - Ubuntu 22
 - VM uses 1GB RAM-a & 10GB disc space
+
+# COOL Lexer (located in lexer folder)
+
+This project implements a **lexer** for the [COOL programming language](https://theory.stanford.edu/people/aiken/cool/), using **Flex** (Fast Lexical Analyzer Generator). The lexer is designed to recognize all standard COOL tokens, handle nested comments, string constants, and edge cases such as invalid or unterminated strings.
+
+## 📄 Overview
+
+The lexer processes input from a file and tokenizes it according to COOL's lexical structure. It supports:
+
+- Keywords and identifiers
+- Type and object IDs
+- Integer and boolean constants
+- Complex string constants
+- Multi-line and nested comments
+- Error handling for malformed input
+
+## 🗂️ Files Overview
+
+ **cool.flex**
+Flex source file containing the lexical specification for the COOL programming language. This is the core file where you define patterns for tokens and their corresponding actions.
+
+*test.cl*
+A test source file written in COOL. This file is used to test the functionality of your lexer. You can modify this file to include custom test cases and edge conditions.
+
+*cool-parse.h*
+A header file that contains shared definitions used throughout the compiler. Provides essential constants and types for integration between different stages of the compiler.
+
+*stringtab.cc, stringtab.h, stringtab_functions.h*
+Source and header files for managing string tables in the compiler. These modules provide utility functions for handling string constants.
+
+*utilities.cc, utilities.h*
+A collection of utility functions, including helper methods like strdup() which are used within the lexer infrastructure.
+
+*lextest.cc*
+Main entry point for running the lexer. It initializes the lexer, processes input, and prints out the tokens generated.
+
+*cool-lex.cc*
+Auto-generated file created by Flex from cool.flex. It contains the compiled C++ code implementing the lexer logic.
+
+Testing script that verifies the correctness of your lexer. It compares actual output against expected results and assigns a score based on performance. Check out all the test files located in test_files directory
+
+## 🚀 Features
+
+- **Token recognition** for all COOL constructs (`CLASS`, `IF`, `FI`, `LET`, etc.)
+- **Case-insensitive matching** for keywords
+- **Multiline and nested comments** handling
+- **String constant parsing** with support for:
+  - Valid escape sequences: `\n`, `\t`, `\\`, `\"`, etc.
+  - Line continuation using `\` at the end of a line
+  - Error detection for:
+    - Unterminated strings
+    - Null characters in strings
+    - Strings exceeding 1024 characters
+- **Graceful error reporting** with detailed messages
