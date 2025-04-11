@@ -106,7 +106,7 @@ Main entry point for running the lexer. It initializes the lexer, processes inpu
 **cool-lex.cc =>**
 Auto-generated file created by Flex from cool.flex. It contains the compiled C++ code implementing the lexer logic.
 
-Testing script that verifies the correctness of your lexer. It compares actual output against expected results and assigns a score based on performance. Check out all the test files located in test_files directory
+Testing script that verifies the correctness of your lexer. It compares actual output against expected results and assigns a score based on performance. Check out [all the test files](https://drive.google.com/drive/folders/1V2Bg05z747DW2gsZLgBb7v-oxeIpjzhl?usp=sharing/) located on my google drive (ask for permission).
 
 ## 🚀 Features
 
