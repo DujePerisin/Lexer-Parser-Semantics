@@ -124,7 +124,8 @@ Testing script that verifies the correctness of your lexer. It compares actual o
 
 
 ## **COOL Parser**
-   🛠 *Loading...*
+   🛠 Completed, just didn't edit the README.md fully.....
+Testing script that verifies the correctness of your parser. It compares actual output against expected results and assigns a score based on performance. Check out [all the test files](https://drive.google.com/drive/folders/1EgAbIHfEtZwU02KttBEeTaIW-rsmjHzw) located on my google drive (ask for permission).
    
 ## **COOL Semantic analyzer **
    🛠 *Loading...*
